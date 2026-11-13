@@ -35,12 +35,14 @@ body { margin: 0; }
   --red-soft: #fbeae7;
   --on-red: #ffffff;
   --scrim: rgba(14, 22, 38, 0.48);
-  --hero-bg: #1a3f74;
+  --hero-a: #1f4e8d;
+  --hero-b: #132f59;
+  --hero-sheen: rgba(255, 255, 255, 0.16);
   --hero-fg: #ffffff;
   --hero-muted: rgba(255, 255, 255, 0.72);
   --hero-btn: #ffffff;
-  --hero-btn-fg: #1a3f74;
-  --hero-shadow: 0 10px 24px rgba(26, 63, 116, 0.22);
+  --hero-btn-fg: #132f59;
+  --hero-shadow: 0 12px 28px rgba(19, 47, 89, 0.28);
   --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "MiSans", "Noto Sans SC", "Microsoft YaHei", "WenQuanYi Zen Hei", sans-serif;
   --num: "DIN Alternate", "Bahnschrift", "Roboto Condensed", sans-serif-condensed, "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -54,7 +56,7 @@ body { margin: 0; }
     --accent: #7fb0ee; --accent-soft: #1b2b41; --on-accent: #0d1520;
     --red: #f0776b; --red-soft: #3a1f1d; --on-red: #1c0b09;
     --scrim: rgba(0, 0, 0, 0.62);
-    --hero-bg: #182f4f; --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
+    --hero-a: #1d3f70; --hero-b: #132741; --hero-sheen: rgba(255, 255, 255, 0.08); --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
     --hero-btn: #e6ecf3; --hero-btn-fg: #0d1520; --hero-shadow: none;
     color-scheme: dark;
   }
@@ -65,7 +67,7 @@ body { margin: 0; }
   --accent: #7fb0ee; --accent-soft: #1b2b41; --on-accent: #0d1520;
   --red: #f0776b; --red-soft: #3a1f1d; --on-red: #1c0b09;
   --scrim: rgba(0, 0, 0, 0.62);
-  --hero-bg: #182f4f; --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
+  --hero-a: #1d3f70; --hero-b: #132741; --hero-sheen: rgba(255, 255, 255, 0.08); --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
   --hero-btn: #e6ecf3; --hero-btn-fg: #0d1520; --hero-shadow: none;
   color-scheme: dark;
 }
@@ -122,7 +124,9 @@ p, h1, h2 { margin: 0; }
 .tab[aria-current="page"] .tab-ic { background: var(--accent-soft); }
 
 /* Timer plate */
-.hero { position: relative; border-radius: 22px; padding: 16px 20px 20px; color: var(--hero-fg); background: var(--hero-bg); box-shadow: var(--hero-shadow); }
+.hero { position: relative; border-radius: 22px; padding: 16px 20px 20px; color: var(--hero-fg);
+  background: radial-gradient(120% 90% at 100% 0%, var(--hero-sheen), transparent 58%), linear-gradient(160deg, var(--hero-a), var(--hero-b));
+  box-shadow: var(--hero-shadow); }
 .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--hero-muted); }
 .hero-time { font-size: clamp(60px, 20vw, 88px); line-height: 1; font-weight: 700; letter-spacing: 0.01em; margin-top: 10px; white-space: nowrap; }
 .hero-sec { font-size: 0.5em; opacity: 0.72; margin-left: 0.04em; }
