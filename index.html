@@ -106,11 +106,11 @@ p, h1, h2 { margin: 0; }
 .view::-webkit-scrollbar { display: none; }
 
 /* Press feedback */
-.tab-ic, .play-btn, .check-box, .chip, .btn, .add button, .day, .cal-nav, .now-stop, .seg button {
+.tab-ic, .play-btn, .check-box, .chip, .btn, .add button, .day-n, .cal-nav, .now-stop, .seg button {
   transition: transform 0.12s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 .tab:active .tab-ic, .play:active .play-btn, .check:active .check-box, .chip:active, .btn:active,
-.add button:active, .day:active, .cal-nav:active, .now-stop:active { transform: scale(0.93); }
+.add button:active, .day:active .day-n, .cal-nav:active, .now-stop:active { transform: scale(0.93); }
 .row-main:active .row-title { opacity: 0.6; }
 
 /* Bottom tabs */
@@ -174,28 +174,26 @@ p, h1, h2 { margin: 0; }
 .recent-label { flex: none; font-size: 13px; color: var(--muted); }
 .recent .chip { flex: none; white-space: nowrap; padding: 6px 14px; font-size: 14px; }
 
-/* Calendar */
-.cal-head { display: flex; align-items: center; gap: 8px; padding-top: 4px; }
-.cal-title { flex: 1; font-size: 24px; font-weight: 700; letter-spacing: 0.01em; }
+/* Calendar: plain month grid. Hairlines between weeks, today in a red disc, the selected day in a dark one. */
+.cal-head { display: flex; align-items: center; gap: 4px; padding-top: 4px; }
+.cal-title { flex: 1; font-size: 28px; font-weight: 700; letter-spacing: 0.01em; }
 .cal-nav { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; color: var(--ink); }
-.cal-today { font-size: 14px; color: var(--accent); padding: 8px 6px; }
+.cal-today { font-size: 16px; color: var(--accent); padding: 8px 8px; }
 .card { background: var(--surface); border: 1px solid var(--edge); border-radius: 18px; box-shadow: var(--shadow); }
-.cal-card { padding: 14px 10px 10px; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-.wd { text-align: center; font-size: 12px; color: var(--muted); padding-bottom: 2px; }
-.day {
-  position: relative; min-height: 46px; border-radius: 12px; color: var(--ink);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
-}
-.day-n { font-size: 15px; line-height: 1.2; }
-.day-t { font-size: 11px; line-height: 1.2; min-height: 13px; color: var(--accent); }
-.day.on { background: var(--accent-soft); }
-.day.is-today .day-n { font-weight: 700; color: var(--accent); }
-.day.is-sel { background: var(--accent); }
-.day.is-sel .day-n, .day.is-sel .day-t { color: var(--on-accent); }
-.day:disabled { color: var(--muted); opacity: 0.5; cursor: default; }
-.day.has-note::after { content: ""; position: absolute; top: 5px; right: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
-.day.is-sel.has-note::after { background: var(--on-accent); }
+.cal-box { margin-top: -4px; touch-action: pan-y; }
+.wds, .grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.wd { text-align: center; font-size: 12px; color: var(--muted); padding-bottom: 6px; }
+.grid > * { border-top: 1px solid var(--line); min-height: 60px; }
+.day { display: flex; flex-direction: column; align-items: center; gap: 1px; padding-top: 6px; color: var(--ink); }
+.day-n { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; font-variant-numeric: tabular-nums; }
+.day.we .day-n { color: var(--muted); }
+.day-t { display: flex; align-items: center; gap: 3px; min-height: 13px; font-size: 11px; line-height: 1.2; color: var(--muted); }
+.day.has-note .day-t::after { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+.day.is-today .day-n { color: var(--red); font-weight: 600; }
+.day.is-sel .day-n { background: var(--ink); color: var(--bg); font-weight: 600; }
+.day.is-today.is-sel .day-n { background: var(--red); color: var(--on-red); }
+.day:disabled { cursor: default; }
+.day:disabled .day-n { color: var(--muted); opacity: 0.45; }
 
 .sec { display: grid; gap: 10px; }
 .sec-head { display: flex; align-items: center; gap: 10px; min-height: 34px; }
@@ -563,17 +561,20 @@ p, h1, h2 { margin: 0; }
     var cells = '';
     var nowD = new Date(), isCurMonth = nowD.getFullYear() === cal.y && nowD.getMonth() === cal.m;
     for (var i = 0; i < lead; i++) cells += '<span></span>';
+    var WD = ['一', '二', '三', '四', '五', '六', '日'];
     for (var d = 1; d <= days; d++) {
       var k = cal.y + '-' + pad(cal.m + 1) + '-' + pad(d), sec = map[k] || 0;
-      cells += '<button class="day' + (sec >= 30 ? ' on' : '') + (k === t ? ' is-today' : '') + (k === cal.sel ? ' is-sel' : '') + (state.notes[k] ? ' has-note' : '') + '"' +
+      cells += '<button class="day' + ((lead + d - 1) % 7 > 4 ? ' we' : '') + (k === t ? ' is-today' : '') + (k === cal.sel ? ' is-sel' : '') + (state.notes[k] ? ' has-note' : '') + '"' +
         (k > t ? ' disabled' : '') + ' data-act="day" data-date="' + k + '" aria-label="' + (cal.m + 1) + '月' + d + '日，' + fmtDur(sec) + (state.notes[k] ? '，有复盘' : '') + '">' +
-        '<span class="day-n num">' + d + '</span><span class="day-t num">' + fmtCell(sec) + '</span></button>';
+        '<span class="day-n">' + d + '</span><span class="day-t num">' + fmtCell(sec) + '</span></button>';
     }
+    for (var j = (lead + days) % 7; j > 0 && j < 7; j++) cells += '<span></span>';
     var html = '<div class="cal-head"><h1 class="cal-title">' + cal.y + '年' + (cal.m + 1) + '月</h1>' +
-      (isCurMonth ? '' : '<button class="cal-today" data-act="cal-today">回到本月</button>') +
+      (isCurMonth ? '' : '<button class="cal-today" data-act="cal-today">今天</button>') +
       '<button class="cal-nav" data-act="cal-prev" aria-label="上个月">' + ICON.prev + '</button>' +
       '<button class="cal-nav" data-act="cal-next" aria-label="下个月">' + ICON.next + '</button></div>' +
-      '<div class="card cal-card"><div class="grid">' + ['一', '二', '三', '四', '五', '六', '日'].map(function (w) { return '<span class="wd">' + w + '</span>'; }).join('') + cells + '</div></div>';
+      '<div class="cal-box"><div class="wds">' + WD.map(function (w) { return '<span class="wd">' + w + '</span>'; }).join('') + '</div>' +
+      '<div class="grid">' + cells + '</div></div>';
 
     var sel = cal.sel;
     var items = state.tasks.map(function (task) {
@@ -820,6 +821,19 @@ p, h1, h2 { margin: 0; }
   });
 
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sheet) closeSheet(); });
+
+  /* Swipe sideways on the month grid to change month. */
+  var swipe = null;
+  document.addEventListener('touchstart', function (e) {
+    var t = e.touches[0];
+    swipe = e.touches.length === 1 && e.target.closest && e.target.closest('.cal-box') ? { x: t.clientX, y: t.clientY } : null;
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (!swipe) return;
+    var t = e.changedTouches[0], dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
+    swipe = null;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) shiftMonth(dx < 0 ? 1 : -1);
+  }, { passive: true });
 
   /* ---------- clock ---------- */
   function tick() {
