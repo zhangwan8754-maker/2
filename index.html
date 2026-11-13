@@ -176,6 +176,10 @@ p, h1, h2 { margin: 0; }
 .empty { color: var(--muted); font-size: 15px; display: grid; gap: 12px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 16px; font-size: 15px; color: var(--ink); }
+.recent { display: flex; align-items: center; gap: 8px; overflow-x: auto; margin-top: -6px; scrollbar-width: none; }
+.recent::-webkit-scrollbar { display: none; }
+.recent-label { flex: none; font-size: 13px; color: var(--muted); }
+.recent .chip { flex: none; white-space: nowrap; padding: 6px 14px; font-size: 14px; }
 
 /* Calendar */
 .cal-head { display: flex; align-items: center; gap: 4px; }
@@ -246,6 +250,7 @@ p, h1, h2 { margin: 0; }
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
       </button>
     </form>
+    <div class="recent" id="recent" hidden></div>
     <div id="task-list"></div>
   </main>
 
@@ -418,14 +423,34 @@ p, h1, h2 { margin: 0; }
     $('hero').className = 'hero' + (task ? ' is-running' : '');
     $('hero').innerHTML = html;
   }
+  /* Titles finished on earlier days in the last two weeks and not on today's list: most repeated first, then most recent. */
+  function recentTitles() {
+    var t = today(), cutoff = dstr(new Date(Date.now() - 14 * 86400000));
+    var onToday = {}, map = {};
+    state.tasks.forEach(function (task) {
+      if (task.date === t) { onToday[task.title] = true; return; }
+      if (task.date < cutoff) return;
+      var m = map[task.title] || (map[task.title] = { title: task.title, count: 0, last: '' });
+      m.count++;
+      if (task.date > m.last) m.last = task.date;
+    });
+    return Object.keys(map).filter(function (k) { return !onToday[k]; }).map(function (k) { return map[k]; })
+      .sort(function (a, b) { return b.count - a.count || (a.last < b.last ? 1 : a.last > b.last ? -1 : 0); })
+      .slice(0, 6);
+  }
   function renderTasks() {
     var now = Date.now(), t = today();
     var list = state.tasks.filter(function (x) { return x.date === t; });
+    var recent = recentTitles();
+    $('recent').hidden = !recent.length;
+    $('recent').innerHTML = recent.length ? '<span class="recent-label">最近</span>' + recent.map(function (r) {
+      return '<button class="chip" data-act="recent" data-text="' + esc(r.title) + '">' + esc(r.title) + '</button>';
+    }).join('') : '';
     if (!list.length) {
       $('task-list').innerHTML = '<div class="empty"><p>今天还没有任务。写下要学的内容，点右边的三角开始计时，学完打勾。</p>' +
-        '<div class="chips">' + ['数学', '英语', '政治', '专业课'].map(function (s) {
+        (recent.length ? '' : '<div class="chips">' + ['数学', '英语', '政治', '专业课'].map(function (s) {
           return '<button class="chip" data-act="chip" data-text="' + s + '">' + s + '</button>';
-        }).join('') + '</div></div>';
+        }).join('') + '</div>') + '</div>';
       return;
     }
     list = list.filter(function (x) { return !x.done; }).concat(list.filter(function (x) { return x.done; }));
@@ -562,6 +587,8 @@ p, h1, h2 { margin: 0; }
       if (view === 'today') $('tab-today').setAttribute('aria-current', 'page');
       else $('tab-cal').setAttribute('aria-current', 'page');
       renderAll();
+    } else if (act === 'recent') {
+      addTask(el.getAttribute('data-text'));
     } else if (act === 'chip') {
       $('add-input').value = el.getAttribute('data-text') + ' ';
       $('add-input').focus();
