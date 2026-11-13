@@ -268,7 +268,7 @@ p, h1, h2 { margin: 0; }
     <section class="hero" id="hero" aria-live="off"></section>
     <p class="notice" id="notice" hidden>当前浏览器不允许保存数据，关闭页面后记录会丢失。请换用普通浏览模式。</p>
     <form class="add" id="add-form" autocomplete="off">
-      <input id="add-input" type="text" maxlength="60" enterkeyhint="done" placeholder="如：数学 高数第三章" aria-label="添加今天要学的内容">
+      <input id="add-input" type="text" maxlength="60" enterkeyhint="done" placeholder="添加今天要学的内容" aria-label="添加今天要学的内容">
       <button type="submit" aria-label="添加任务">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
       </button>
@@ -595,7 +595,7 @@ p, h1, h2 { margin: 0; }
           '<div class="sub-bar"><i style="width:' + pct.toFixed(1) + '%"></i></div></div>';
       }).join('') + '</div>';
     }
-    html += '<p class="hint">科目取任务名称的第一个词，比如“数学 高数第三章”记在数学下。</p></section>' +
+    html += '</section>' +
       '<button class="link" data-act="backup">备份与恢复数据</button>';
     $('view-cal').innerHTML = html;
     growNote();
