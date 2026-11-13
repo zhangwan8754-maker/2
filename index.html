@@ -35,22 +35,12 @@ body { margin: 0; }
   --red-soft: #fbeae7;
   --on-red: #ffffff;
   --scrim: rgba(14, 22, 38, 0.48);
-  --hero-a: #1f4e8d;
-  --hero-b: #132f59;
-  --hero-sheen: rgba(255, 255, 255, 0.16);
+  --hero-bg: #1a3f74;
   --hero-fg: #ffffff;
   --hero-muted: rgba(255, 255, 255, 0.72);
-  --hero-chip: rgba(255, 255, 255, 0.13);
-  --hero-track: rgba(255, 255, 255, 0.22);
-  --hero-dot: #ff9486;
   --hero-btn: #ffffff;
-  --hero-btn-fg: #132f59;
-  --hero-shadow: 0 12px 28px rgba(19, 47, 89, 0.28);
-  --h1: #d9e6f5; --h1-fg: #16233b;
-  --h2: #b0cbea; --h2-fg: #16233b;
-  --h3: #7ba6d9; --h3-fg: #0f1c30;
-  --h4: #4379bd; --h4-fg: #ffffff;
-  --h5: #1e4f8f; --h5-fg: #ffffff;
+  --hero-btn-fg: #1a3f74;
+  --hero-shadow: 0 10px 24px rgba(26, 63, 116, 0.22);
   --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "MiSans", "Noto Sans SC", "Microsoft YaHei", "WenQuanYi Zen Hei", sans-serif;
   --num: "DIN Alternate", "Bahnschrift", "Roboto Condensed", sans-serif-condensed, "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -64,15 +54,8 @@ body { margin: 0; }
     --accent: #7fb0ee; --accent-soft: #1b2b41; --on-accent: #0d1520;
     --red: #f0776b; --red-soft: #3a1f1d; --on-red: #1c0b09;
     --scrim: rgba(0, 0, 0, 0.62);
-    --hero-a: #1d3f70; --hero-b: #132741; --hero-sheen: rgba(255, 255, 255, 0.08);
-    --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
-    --hero-chip: rgba(255, 255, 255, 0.1); --hero-track: rgba(255, 255, 255, 0.17);
-    --hero-dot: #ff9486; --hero-btn: #e6ecf3; --hero-btn-fg: #0d1520; --hero-shadow: none;
-    --h1: #203552; --h1-fg: #e6ecf3;
-    --h2: #27487a; --h2-fg: #e6ecf3;
-    --h3: #2c5a99; --h3-fg: #ffffff;
-    --h4: #4a82cc; --h4-fg: #ffffff;
-    --h5: #86b6f2; --h5-fg: #0d1520;
+    --hero-bg: #182f4f; --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
+    --hero-btn: #e6ecf3; --hero-btn-fg: #0d1520; --hero-shadow: none;
     color-scheme: dark;
   }
 }
@@ -82,15 +65,8 @@ body { margin: 0; }
   --accent: #7fb0ee; --accent-soft: #1b2b41; --on-accent: #0d1520;
   --red: #f0776b; --red-soft: #3a1f1d; --on-red: #1c0b09;
   --scrim: rgba(0, 0, 0, 0.62);
-  --hero-a: #1d3f70; --hero-b: #132741; --hero-sheen: rgba(255, 255, 255, 0.08);
-  --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
-  --hero-chip: rgba(255, 255, 255, 0.1); --hero-track: rgba(255, 255, 255, 0.17);
-  --hero-dot: #ff9486; --hero-btn: #e6ecf3; --hero-btn-fg: #0d1520; --hero-shadow: none;
-  --h1: #203552; --h1-fg: #e6ecf3;
-  --h2: #27487a; --h2-fg: #e6ecf3;
-  --h3: #2c5a99; --h3-fg: #ffffff;
-  --h4: #4a82cc; --h4-fg: #ffffff;
-  --h5: #86b6f2; --h5-fg: #0d1520;
+  --hero-bg: #182f4f; --hero-fg: #eef3f9; --hero-muted: rgba(238, 243, 249, 0.68);
+  --hero-btn: #e6ecf3; --hero-btn-fg: #0d1520; --hero-shadow: none;
   color-scheme: dark;
 }
 
@@ -146,30 +122,11 @@ p, h1, h2 { margin: 0; }
 .tab[aria-current="page"] .tab-ic { background: var(--accent-soft); }
 
 /* Timer plate */
-.hero {
-  border-radius: 24px; padding: 18px 20px 16px; color: var(--hero-fg);
-  background: radial-gradient(120% 90% at 100% 0%, var(--hero-sheen), transparent 58%), linear-gradient(160deg, var(--hero-a), var(--hero-b));
-  box-shadow: var(--hero-shadow);
-}
-.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 20px; font-size: 13px; color: var(--hero-muted); }
-.hero-state { display: flex; align-items: center; gap: 6px; color: var(--hero-fg); }
-.now-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hero-dot); flex: none; animation: pulse 1.6s ease-in-out infinite; }
-@keyframes pulse { 50% { opacity: 0.25; } }
-.hero-label { font-size: 13px; color: var(--hero-muted); margin-top: 14px; }
-.hero-time { font-size: clamp(60px, 20vw, 88px); line-height: 1; font-weight: 700; letter-spacing: 0.01em; margin-top: 4px; white-space: nowrap; }
+.hero { position: relative; border-radius: 22px; padding: 16px 20px 20px; color: var(--hero-fg); background: var(--hero-bg); box-shadow: var(--hero-shadow); }
+.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--hero-muted); }
+.hero-time { font-size: clamp(60px, 20vw, 88px); line-height: 1; font-weight: 700; letter-spacing: 0.01em; margin-top: 10px; white-space: nowrap; }
 .hero-sec { font-size: 0.5em; opacity: 0.72; margin-left: 0.04em; }
-.hero-slot {
-  margin-top: 16px; height: 48px; border-radius: 14px; background: var(--hero-chip);
-  display: flex; align-items: center; gap: 12px; padding: 0 14px;
-}
-.prog-label { flex: none; font-size: 14px; color: var(--hero-muted); }
-.prog-label b { color: var(--hero-fg); font-weight: 600; font-size: 15px; }
-.prog-bar { flex: 1; height: 6px; border-radius: 3px; background: var(--hero-track); overflow: hidden; }
-.prog-bar i { display: block; height: 100%; border-radius: 3px; background: var(--hero-fg); }
-.hero-slot.now { padding-right: 6px; }
-.now-title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
-.now-time { flex: none; font-size: 17px; font-weight: 700; }
-.now-stop { flex: none; height: 36px; padding: 0 16px; border-radius: 10px; background: var(--hero-btn); color: var(--hero-btn-fg); font-size: 15px; font-weight: 600; }
+.now-stop { position: absolute; right: 16px; bottom: 18px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--hero-btn); color: var(--hero-btn-fg); }
 .notice { font-size: 13px; color: var(--red); background: var(--red-soft); border-radius: 12px; padding: 8px 12px; }
 
 /* Add field */
@@ -216,12 +173,10 @@ p, h1, h2 { margin: 0; }
 /* Calendar */
 .cal-head { display: flex; align-items: center; gap: 8px; padding-top: 4px; }
 .cal-title { flex: 1; font-size: 24px; font-weight: 700; letter-spacing: 0.01em; }
-.cal-nav { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--edge); box-shadow: var(--shadow-sm); color: var(--ink); }
+.cal-nav { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; color: var(--ink); }
 .cal-today { font-size: 14px; color: var(--accent); padding: 8px 6px; }
-.cal-sum { font-size: 14px; color: var(--muted); margin-top: -10px; }
-.cal-sum b { color: var(--ink); font-weight: 600; }
 .card { background: var(--surface); border: 1px solid var(--edge); border-radius: 18px; box-shadow: var(--shadow); }
-.cal-card { padding: 14px 10px 12px; display: grid; gap: 10px; }
+.cal-card { padding: 14px 10px 10px; }
 .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .wd { text-align: center; font-size: 12px; color: var(--muted); padding-bottom: 2px; }
 .day {
@@ -229,18 +184,14 @@ p, h1, h2 { margin: 0; }
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
 }
 .day-n { font-size: 15px; line-height: 1.2; }
-.day-t { font-size: 11px; line-height: 1.2; min-height: 13px; }
-.day.h1 { background: var(--h1); color: var(--h1-fg); }
-.day.h2 { background: var(--h2); color: var(--h2-fg); }
-.day.h3 { background: var(--h3); color: var(--h3-fg); }
-.day.h4 { background: var(--h4); color: var(--h4-fg); }
-.day.h5 { background: var(--h5); color: var(--h5-fg); }
-.day.is-today .day-n { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-.day.is-sel { box-shadow: inset 0 0 0 2px var(--ink); }
+.day-t { font-size: 11px; line-height: 1.2; min-height: 13px; color: var(--accent); }
+.day.on { background: var(--accent-soft); }
+.day.is-today .day-n { font-weight: 700; color: var(--accent); }
+.day.is-sel { background: var(--accent); }
+.day.is-sel .day-n, .day.is-sel .day-t { color: var(--on-accent); }
 .day:disabled { color: var(--muted); opacity: 0.5; cursor: default; }
-.day.has-note::after { content: ""; position: absolute; top: 5px; right: 6px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.75; }
-.legend { display: flex; align-items: center; justify-content: flex-end; gap: 6px; font-size: 12px; color: var(--muted); padding-right: 4px; }
-.legend i { width: 14px; height: 14px; border-radius: 4px; display: block; }
+.day.has-note::after { content: ""; position: absolute; top: 5px; right: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.day.is-sel.has-note::after { background: var(--on-accent); }
 
 .sec { display: grid; gap: 10px; }
 .sec-head { display: flex; align-items: center; gap: 10px; min-height: 34px; }
@@ -357,10 +308,10 @@ p, h1, h2 { margin: 0; }
 
   var KEY = 'kaoyan-rike-v1';
   var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
-  var HEAT_HOURS = [2, 4, 6, 8];
   var ICON = {
     play: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8.5 5.5v13l10.5-6.5z" fill="currentColor"/></svg>',
     pause: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z" fill="currentColor"/></svg>',
+    stop: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>',
     check: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     prev: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     next: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
@@ -548,22 +499,9 @@ p, h1, h2 { margin: 0; }
     var now = Date.now(), t = today();
     var c = splitClock(totals(now)[t] || 0);
     var task = state.running && byId(state.running.id);
-    var list = state.tasks.filter(function (x) { return x.date === t; });
-    var done = list.filter(function (x) { return x.done; }).length;
-    var html = '<div class="hero-top"><span class="hero-date">' + dayLabel(t) + '</span>' +
-      (task ? '<span class="hero-state"><span class="now-dot"></span>计时中</span>' : '') + '</div>' +
-      '<p class="hero-label">今日已学</p>' +
-      '<p class="hero-time num" id="total"><span id="total-hm">' + c[0] + '</span><span class="hero-sec" id="total-s">' + c[1] + '</span></p>';
-    if (task) {
-      html += '<div class="hero-slot now"><span class="now-title">' + esc(task.title) + '</span>' +
-        '<span class="now-time num" id="session">' + fmtShort((now - state.running.start) / 1000) + '</span>' +
-        '<button class="now-stop" data-act="stop">停止</button></div>';
-    } else if (list.length) {
-      html += '<div class="hero-slot"><span class="prog-label">已完成 <b class="num">' + done + ' / ' + list.length + '</b></span>' +
-        '<span class="prog-bar"><i style="width:' + (done / list.length * 100).toFixed(1) + '%"></i></span></div>';
-    } else {
-      html += '<div class="hero-slot"><span class="prog-label">今天还没有任务</span></div>';
-    }
+    var html = '<div class="hero-top"><span>今日已学</span><span class="hero-date">' + dayLabel(t) + '</span></div>' +
+      '<p class="hero-time num" id="total"><span id="total-hm">' + c[0] + '</span><span class="hero-sec" id="total-s">' + c[1] + '</span></p>' +
+      (task ? '<button class="now-stop" data-act="stop" aria-label="停止计时">' + ICON.stop + '</button>' : '');
     $('hero').className = 'hero' + (task ? ' is-running' : '');
     $('hero').innerHTML = html;
   }
@@ -613,24 +551,17 @@ p, h1, h2 { margin: 0; }
   }
 
   /* ---------- calendar view ---------- */
-  function heat(sec) {
-    if (sec < 30) return 0;
-    var h = sec / 3600, lvl = 1;
-    HEAT_HOURS.forEach(function (x) { if (h >= x) lvl++; });
-    return lvl;
-  }
   function renderCal() {
     var now = Date.now(), t = today(), map = totals(now);
     var first = new Date(cal.y, cal.m, 1);
     var days = new Date(cal.y, cal.m + 1, 0).getDate();
     var lead = (first.getDay() + 6) % 7;
-    var monthSec = 0, studied = 0, cells = '';
+    var cells = '';
     var nowD = new Date(), isCurMonth = nowD.getFullYear() === cal.y && nowD.getMonth() === cal.m;
     for (var i = 0; i < lead; i++) cells += '<span></span>';
     for (var d = 1; d <= days; d++) {
-      var k = cal.y + '-' + pad(cal.m + 1) + '-' + pad(d), sec = map[k] || 0, lvl = heat(sec);
-      if (lvl) { monthSec += sec; studied++; }
-      cells += '<button class="day' + (lvl ? ' h' + lvl : '') + (k === t ? ' is-today' : '') + (k === cal.sel ? ' is-sel' : '') + (state.notes[k] ? ' has-note' : '') + '"' +
+      var k = cal.y + '-' + pad(cal.m + 1) + '-' + pad(d), sec = map[k] || 0;
+      cells += '<button class="day' + (sec >= 30 ? ' on' : '') + (k === t ? ' is-today' : '') + (k === cal.sel ? ' is-sel' : '') + (state.notes[k] ? ' has-note' : '') + '"' +
         (k > t ? ' disabled' : '') + ' data-act="day" data-date="' + k + '" aria-label="' + (cal.m + 1) + '月' + d + '日，' + fmtDur(sec) + (state.notes[k] ? '，有复盘' : '') + '">' +
         '<span class="day-n num">' + d + '</span><span class="day-t num">' + fmtCell(sec) + '</span></button>';
     }
@@ -638,9 +569,7 @@ p, h1, h2 { margin: 0; }
       (isCurMonth ? '' : '<button class="cal-today" data-act="cal-today">回到本月</button>') +
       '<button class="cal-nav" data-act="cal-prev" aria-label="上个月">' + ICON.prev + '</button>' +
       '<button class="cal-nav" data-act="cal-next" aria-label="下个月">' + ICON.next + '</button></div>' +
-      '<p class="cal-sum">本月共学 <b>' + (monthSec / 3600).toFixed(1) + ' 小时</b>，有记录 <b>' + studied + ' 天</b></p>' +
-      '<div class="card cal-card"><div class="grid">' + ['一', '二', '三', '四', '五', '六', '日'].map(function (w) { return '<span class="wd">' + w + '</span>'; }).join('') + cells + '</div>' +
-      '<div class="legend"><span>少</span><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i><i style="background:var(--h5)"></i><span>8 小时以上</span></div></div>';
+      '<div class="card cal-card"><div class="grid">' + ['一', '二', '三', '四', '五', '六', '日'].map(function (w) { return '<span class="wd">' + w + '</span>'; }).join('') + cells + '</div></div>';
 
     var sel = cal.sel;
     var items = state.tasks.map(function (task) {
@@ -897,13 +826,12 @@ p, h1, h2 { margin: 0; }
     }
     if (!state.running) return;
     var now = Date.now(), t = today(), task = byId(state.running.id);
-    var total = $('total'), session = $('session'), row = $('run-time');
+    var total = $('total'), row = $('run-time');
     if (total) {
       var c = splitClock(totals(now)[t] || 0);
       if ($('total-hm').textContent !== c[0]) $('total-hm').textContent = c[0];
       $('total-s').textContent = c[1];
     }
-    if (session) session.textContent = fmtShort((now - state.running.start) / 1000);
     if (row && task) row.textContent = fmtShort(secondsOn(task, t, now));
     var typing = document.activeElement && document.activeElement.id === 'note';
     if (view === 'cal' && !sheet && !typing && ++ticks % 60 === 0) renderCal();
